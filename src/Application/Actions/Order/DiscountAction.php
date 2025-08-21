@@ -1,12 +1,10 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Application\Actions\Order;
 
 use App\Application\Dto\ItemDto;
 use App\Application\Dto\OrderDto;
 use App\Application\Service\CalculateDiscountService;
-use App\Domain\Customer\CustomerRepository;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 

@@ -1,7 +1,5 @@
 <?php
-declare(strict_types=1);
 
-use App\Application\Actions\Order\DiscountAction;
 use App\Application\Service\CalculateDiscountService;
 use App\Domain\Customer\CustomerRepository;
 use App\Domain\Discount\CategoryOneCheapestDiscount;

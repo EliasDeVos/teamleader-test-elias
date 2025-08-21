@@ -1,12 +1,10 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence\Customer;
 
 use App\Domain\Customer\Customer;
 use App\Domain\Customer\CustomerRepository;
 use App\Domain\Discount\Exception\CustomerNotFoundException;
-use App\Domain\User\UserNotFoundException;
 
 class InMemoryCustomerRepository implements CustomerRepository
 {

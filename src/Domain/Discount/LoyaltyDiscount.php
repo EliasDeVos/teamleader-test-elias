@@ -1,13 +1,10 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Domain\Discount;
 
 use App\Application\Dto\OrderDto;
 use App\Domain\Customer\CustomerRepository;
 use App\Domain\Discount\Exception\DiscountNotApplicableException;
-use DateTimeImmutable;
-use DateTimeInterface;
 
 class LoyaltyDiscount implements DiscountContract
 {

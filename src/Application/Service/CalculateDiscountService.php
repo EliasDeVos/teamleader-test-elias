@@ -1,16 +1,12 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Application\Service;
 
 use App\Application\Dto\DiscountDto;
 use App\Application\Dto\DiscountOrderDto;
 use App\Application\Dto\OrderDto;
-use App\Domain\Customer\CustomerRepository;
 use App\Domain\Discount\DiscountContract;
 use App\Domain\Discount\Exception\DiscountNotApplicableException;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
 class CalculateDiscountService
 {
