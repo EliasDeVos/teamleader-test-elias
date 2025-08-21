@@ -1,29 +1,29 @@
 <?php
 declare(strict_types=1);
 
-use App\Application\Settings\SettingsInterface;
+use App\Application\Actions\Order\DiscountAction;
+use App\Application\Service\CalculateDiscountService;
+use App\Domain\Customer\CustomerRepository;
+use App\Domain\Discount\CategoryOneCheapestDiscount;
+use App\Domain\Product\ProductRepository;
+use App\Domain\Discount\CategoryTwoSixthFreeDiscount;
+use App\Domain\Discount\LoyaltyDiscount;
+use App\Infrastructure\Persistence\Customer\InMemoryCustomerRepository;
+use App\Infrastructure\Persistence\Product\InMemoryProductRepository;
 use DI\ContainerBuilder;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-use Monolog\Processor\UidProcessor;
-use Psr\Container\ContainerInterface;
-use Psr\Log\LoggerInterface;
+use function DI\autowire;
+use function DI\create;
+use function DI\get;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
-        LoggerInterface::class => function (ContainerInterface $c) {
-            $settings = $c->get(SettingsInterface::class);
-
-            $loggerSettings = $settings->get('logger');
-            $logger = new Logger($loggerSettings['name']);
-
-            $processor = new UidProcessor();
-            $logger->pushProcessor($processor);
-
-            $handler = new StreamHandler($loggerSettings['path'], $loggerSettings['level']);
-            $logger->pushHandler($handler);
-
-            return $logger;
-        },
+        CustomerRepository::class => autowire(InMemoryCustomerRepository::class),
+        ProductRepository::class => autowire(InMemoryProductRepository::class),
+        CalculateDiscountService::class => create()
+            ->constructor([
+                get(LoyaltyDiscount::class),
+                get(CategoryTwoSixthFreeDiscount::class),
+                get(CategoryOneCheapestDiscount::class),
+            ])
     ]);
 };
