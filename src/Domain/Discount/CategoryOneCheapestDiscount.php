@@ -18,6 +18,7 @@ class CategoryOneCheapestDiscount implements DiscountContract
     public function calculate(OrderDto $orderDto): float
     {
         $cheapestProduct = null;
+        $categoryOneProducts = [];
         /** @var ItemDto $itemDto */
         foreach ($orderDto->items as $itemDto)
         {
@@ -37,9 +38,10 @@ class CategoryOneCheapestDiscount implements DiscountContract
             {
                 $cheapestProduct = $itemDto;
             }
+            $categoryOneProducts[] = $itemDto;
         }
 
-        if ($cheapestProduct === null)
+        if ($cheapestProduct === null || count($categoryOneProducts) < 2)
         {
             throw new DiscountNotApplicableException();
         }
